@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.sip.ams.services.ProviderService;
 
 @RestController
 @RequestMapping({ "/providers" })
+@CrossOrigin("*")
 public class ProviderRestController {
 
 	@Autowired
@@ -28,6 +30,11 @@ public class ProviderRestController {
 	@GetMapping
 	public List<Provider> findAll() {
 		return (List<Provider>) providerService.findAll();
+	}
+	
+	@GetMapping("/{providerId}")
+	public Provider findOneProvider(@PathVariable Long providerId) {
+		return providerService.findOneProvider(providerId);
 	}
 
 	
@@ -47,5 +54,6 @@ public class ProviderRestController {
 	public Provider deleteProvider(@PathVariable Long providerId) {
 		return providerService.delete(providerId);
 	}
+
 
 }

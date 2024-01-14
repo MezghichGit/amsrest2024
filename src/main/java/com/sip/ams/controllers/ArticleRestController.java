@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping({ "/articles" })
+@CrossOrigin("*")
 public class ArticleRestController {
 
 	@Autowired

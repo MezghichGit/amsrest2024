@@ -24,6 +24,10 @@ public class ProviderService {
 		return (List<Provider>) providerRepository.findAll();
 	}
 	
+	public Provider findOneProvider(long id) {
+		return  providerRepository.findById(id).get();
+	}
+	
 	public Provider create(Provider provider) {
 		return providerRepository.save(provider);
 	}
