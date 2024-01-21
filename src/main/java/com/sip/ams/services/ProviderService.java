@@ -97,11 +97,14 @@ public class ProviderService {
 			}
 
 			/// STEP 2 : Upload new image to server
-			String newImageName = getSaltString().concat(file.getOriginalFilename());
+			String newImageName = provider.getLogo();
+			if(file!=null) {
+			    newImageName = getSaltString().concat(file.getOriginalFilename());
 			try {
 				Files.copy(file.getInputStream(), this.root.resolve(newImageName));
 			} catch (Exception e) {
 				throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+			}
 			}
 			/// END STEP 2
 
