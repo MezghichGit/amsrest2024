@@ -49,7 +49,7 @@ public class ProviderRestController {
 	}*/
 	
 	@PostMapping
-	public Provider create(@RequestParam("imageFile") MultipartFile file,
+	public Provider create(@RequestParam(name="imageFile") MultipartFile file,
 			@RequestParam("name") String name,
 			@RequestParam("email") String email, 
 			@RequestParam("address") String address
@@ -59,12 +59,23 @@ public class ProviderRestController {
 		return providerService.create(file,name,email,address);
 	}
 	
-	
+	/*
 	@PutMapping("/{providerId}")
 	public Provider updateProvider(@PathVariable Long providerId, @Valid @RequestBody Provider providerRequest) {
 		return providerService.update(providerId, providerRequest);
-	}
+	}*/
 	
+	@PutMapping("/{providerId}")
+	public Provider updateProvider(@RequestParam(name="imageFile",required = false) MultipartFile file,
+			@RequestParam("name") String name,
+			@RequestParam("email") String email, 
+			@RequestParam("address") String address,
+			@RequestParam("id") long id
+			//@RequestParam("imageName") String imageName
+			) throws IOException {
+		
+		return providerService.update( file,name,email, address,id);
+	}
 	
 	@DeleteMapping("/{providerId}")
 	public Provider deleteProvider(@PathVariable Long providerId) {
