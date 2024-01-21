@@ -26,16 +26,35 @@ public class Provider {
     @Email(message = "Email not valid")
     @Column(name = "email")
     private String email;
+    
+    @NotBlank(message = "Logo is mandatory")
+    @Column(name = "logo")
+    private String logo;
 
     public Provider() {}
 
-    public Provider(String name, String address, String email) {
+    public Provider(String name, String address, String email, String logo) {
         this.name = name;
         this.address = address;
         this.email = email;
+        this.logo = logo;
     }
 
-    public void setId(long id) {
+    public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	@Override
+	public String toString() {
+		return "Provider [id=" + id + ", name=" + name + ", address=" + address + ", email=" + email + ", logo=" + logo
+				+ "]";
+	}
+
+	public void setId(long id) {
         this.id = id;
     }
 

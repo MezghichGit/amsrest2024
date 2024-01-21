@@ -1,5 +1,7 @@
 package com.sip.ams.controllers;
+import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import jakarta.validation.Valid;
 
@@ -15,9 +17,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sip.ams.entities.Provider;
 import com.sip.ams.services.ProviderService;
+
 
 @RestController
 @RequestMapping({ "/providers" })
@@ -38,9 +43,20 @@ public class ProviderRestController {
 	}
 
 	
-	@PostMapping
+	/*@PostMapping
 	public Provider create(@Valid @RequestBody Provider provider) {
 		return providerService.create(provider);
+	}*/
+	
+	@PostMapping
+	public Provider create(@RequestParam("imageFile") MultipartFile file,
+			@RequestParam("name") String name,
+			@RequestParam("email") String email, 
+			@RequestParam("address") String address
+			//@RequestParam("imageName") String imageName
+			) throws IOException
+	{
+		return providerService.create(file,name,email,address);
 	}
 	
 	
@@ -55,5 +71,6 @@ public class ProviderRestController {
 		return providerService.delete(providerId);
 	}
 
+	
 
 }
