@@ -16,13 +16,14 @@ public class TestController {
   }
 
   @GetMapping("/user")
-  @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('SUPERADMIN')")
+  @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
   public String userAccess() {
     return "User Content.";
   }
 
   @GetMapping("/superadmin")
-  @PreAuthorize("hasRole('SUPERADMIN')")
+  @PreAuthorize("hasRole('SUPER_ADMIN')")
+  
   public String superAdminAccess() {
     return "SuperAdmin Board.";
   }

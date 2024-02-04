@@ -31,7 +31,7 @@ import com.sip.ams.services.UserDetailsServiceImpl;
 public class SecurityConfiguration {
 	
 	
-	@Autowired
+	  @Autowired
 	  UserDetailsServiceImpl userDetailsService;
 
 	  @Autowired

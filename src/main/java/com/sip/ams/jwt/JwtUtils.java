@@ -1,6 +1,7 @@
 package com.sip.ams.jwt;
 
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -18,16 +19,21 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-  @Value("${amsrest.jwtSecret}")
+  @Value("${jwtSecret}")
   private String jwtSecret;
 
-  @Value("${amsrest.jwtExpirationMs}")
+  @Value("${jwtExpirationMs}")
   private int jwtExpirationMs;
+  
+
 
   public String generateJwtToken(Authentication authentication) {
 
     UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
+    //System.out.println(userPrincipal.getUsername());
+    
+    
     return Jwts.builder()
         .setSubject((userPrincipal.getUsername()))
         .setIssuedAt(new Date())
@@ -37,7 +43,7 @@ public class JwtUtils {
   }
   
   private Key key() {
-    return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+	return Keys.secretKeyFor(SignatureAlgorithm.HS256);
   }
 
   public String getUserNameFromJwtToken(String token) {
