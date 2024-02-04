@@ -19,21 +19,17 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
+  
   @Value("${jwtSecret}")
   private String jwtSecret;
-
+  
   @Value("${jwtExpirationMs}")
   private int jwtExpirationMs;
-  
-
 
   public String generateJwtToken(Authentication authentication) {
 
     UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-    //System.out.println(userPrincipal.getUsername());
-    
-    
     return Jwts.builder()
         .setSubject((userPrincipal.getUsername()))
         .setIssuedAt(new Date())
@@ -42,8 +38,11 @@ public class JwtUtils {
         .compact();
   }
   
+  
+  
   private Key key() {
-	return Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	byte[] secret = jwtSecret.getBytes();
+	return Keys.hmacShaKeyFor(secret);
   }
 
   public String getUserNameFromJwtToken(String token) {

@@ -115,12 +115,18 @@ public class AuthController {
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
+	  //1-get Authentication
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
+     //2-get token
     SecurityContextHolder.getContext().setAuthentication(authentication);
     String jwt = jwtUtils.generateJwtToken(authentication);
-    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();    
+    
+    //3-get User details
+    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+    
+     //4-get roles
     List<String> roles = userDetails.getAuthorities().stream()
         .map(item -> item.getAuthority())
         .collect(Collectors.toList());
