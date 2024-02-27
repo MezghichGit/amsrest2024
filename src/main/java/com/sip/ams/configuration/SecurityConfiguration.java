@@ -69,7 +69,7 @@ public class SecurityConfiguration {
 	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 	        .authorizeHttpRequests(auth -> 
 	          auth.requestMatchers("/api/auth/**").permitAll()
-	              .requestMatchers("/api/test/**").permitAll()
+	             // .requestMatchers("/api/test/**").permitAll()
 	              .anyRequest().authenticated()
 	        );
 	    
@@ -79,33 +79,7 @@ public class SecurityConfiguration {
 	    
 	    return http.build();
 	  }
-	/*
-	@Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    
-    
-   
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		/*
-		http.csrf().disable().authorizeHttpRequests().requestMatchers("/login","/registration","/roles/**","/accounts/**").permitAll().anyRequest().authenticated().and().httpBasic();
-		return http.build();*/
-		
-		/*http.csrf(csrf -> csrf.disable())
-        
-        .authorizeHttpRequests(auth -> 
-          auth.requestMatchers("/api/auth/**").permitAll()
-              .requestMatchers("/api/test/**").permitAll()
-              .anyRequest().authenticated()
-        );*/
-    
-   // http.authenticationProvider(authenticationProvider());
-
-  //  http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    
-   // return http.build();
-	//}*/
+	
 	
 	 @Bean
 	    public WebSecurityCustomizer webSecurityCustomizer() throws Exception {
